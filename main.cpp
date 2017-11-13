@@ -5,7 +5,7 @@
 #include <iostream>
 #include <vector>
 
-#include "NTree.h"
+#include "Ntree.h"
 
 int main(int argc, char** argv) {
 	std::vector<std::string> values = {"Food", "Plant", "Animal", "Roots", "Leaves", "Fruits", "Fish", "Mammals", "Birds", "Potatoes", "Carrots", "Lettuce", "Cabbage", "Apples", "Pears", "Plums", "Oranges", "Salmon", "Tuna", "Beef", "Lamb", "Chicken", "Duck", "Wild", "Farm", "GrannySmith", "Gala" };
