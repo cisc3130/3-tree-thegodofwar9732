@@ -99,6 +99,15 @@ class NTree {
 		return str;
 	}
 
+        bool treeEqual(tnode* lnd, tnode* rnd) {
+          if (lnd->data != rnd->data) return false;
+          if (lnd->children.size() != rnd.children->size()) return false;
+          for (int i = 0; i < lnd->children.size(); i++) {
+            if (!treeEqual(lnd->children[i], rnd->children[i])) return false;
+          }
+          return true;
+        }
+
 	public:
 	NTree() : root(NULL) {}
 
@@ -139,9 +148,11 @@ class NTree {
 		return stream;
 	}
 
-	// TODO: replace dummy return value with test for equality
 	bool operator==(const NTree<T>& rhs) {
-		return true;			
+		tnode *lnd = root, *rnd = rhs.root;
+                if (!(lnd || rnd)) return true;
+                if (!lnd || !rnd) return false;
+                return treeEqual(lnd, rnd);
 	}
 
 	// TODO: implement method to write tree in recoverable format to file
