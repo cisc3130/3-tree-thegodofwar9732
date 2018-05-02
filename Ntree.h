@@ -101,7 +101,7 @@ class NTree {
 
         bool treeEqual(tnode* lnd, tnode* rnd) {
           if (lnd->data != rnd->data) return false;
-          if (lnd->children.size() != rnd.children->size()) return false;
+          if (lnd->children.size() != rnd->children->size()) return false;
           for (int i = 0; i < lnd->children.size(); i++) {
             if (!treeEqual(lnd->children[i], rnd->children[i])) return false;
           }
