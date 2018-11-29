@@ -159,7 +159,7 @@ public class NTree<E> {
 		List<Integer> intparents = Arrays.asList( -1, 0, 1, 1, 1, 2, 2, 2, 3, 3, 8, 8, 8, 8);
 		NTree<Integer> inttree = new NTree<>(intvalues, intparents);
 
-		NTree<Integer> intt.;;;;;;;;;;;;;;;;;;;;;;;; ree2 = new NTree<>();
+		NTree<Integer> inttree2 = new NTree<>();
 		inttree.serialize("inttree.out");
 		inttree2.deserialize("inttree.out");
 		
