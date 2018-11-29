@@ -5,3 +5,4 @@ Given the NTree class, write methods ```serialize``` and ```deserialize```, whic
 Compile and test your code.
 
 "foodtree.out" gives an example of a serialized format that is inefficient in time and space. Implement a better version for extra credit.
+;

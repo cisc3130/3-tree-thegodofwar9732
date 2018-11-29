@@ -1,4 +1,8 @@
 import java.util.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.IOException;
 
 public class NTree<E> {
 
@@ -49,11 +53,97 @@ public class NTree<E> {
 		return true;
 	}
 
-	public void serialize(String fname) {}
+	public void serialize(String fname) {
+		FileWriter file = new FileWriter(new File(fname), true);
 
-	public void deserialize(String fname) {}
+		Queue<Node> q = new LinkedList<>();
+		q.offer(root);
+
+		while (!q.isEmpty()) {
+			// fetch node in queue
+			Node node = q.poll();
+			Node tnd = node;
+			// use tracker node to print node and its parents if it has any
+			file.print(tnd.data + " ");
+			while(tnd.parent != null) {
+				tnd = tnd.parent;
+				file.print(tnd.data + " ");
+			}
+			System.out.println();
+			for (int i = 0; i < node.children.size(); i++) {
+				q.offer(node.children.get(i));
+			}
+
+		}
+		file.close();
+	}
+
+	public void deserialize(String fname) throws IOException{
+		Scanner input = new Scanner(new File(fname));
+
+		// grab first string and set it as root
+		String root = input.nextLine();
+
+
+		// create name and number lists
+		List<E> names = new ArrayList<>();
+		names.add(root);
+		List<Integer> parents = new ArrayList<>();
+		parents.add(-1);
+
+		String currentLine;
+		E lastString, parent;
+		String[] lineArr;
+		int parentIndex;
+		int nodeNumber = 1;
+
+		// java version of objects
+		// this will contain strings with their corresponding index
+		Map<E, Integer> map = new TreeMap<>();
+		map.put(root, 0);
+
+		// read whole file
+		while (input.hasNext()) {
+			// read line by line
+			currentLine = input.nextLine();
+			lineArr = currentLine.split(" ");
+			
+			// add last string of input array to name list
+			lastString = lineArr[lineArr.length-1];
+			names.add(lastString);
+			// add new nodes parent index to parent list
+			
+			// so what is new nodes parent
+			parent = lineArr[lineArr.length -2];
+			parentIndex = map.get(parent);
+
+			// finally add to parent list
+			// System.out.printf("parent %s\tparentIndex %d\t", parent, parentIndex);
+			parents.add(parentIndex);
+
+			// add new node to parent map
+			// System.out.printf("lastString %s\tnodeNumber %d\n", lastString, nodeNumber);
+			map.put(lastString, nodeNumber++);
+
+		}
+		input.close();
+
+		if (names.size() != parents.size()) throw new Exception();
+		Map<E, Node> m = new TreeMap<>();
+		for (int i = 0; i < names.size(); i++) {
+			Node nd = new Node(names.get(i));
+			m.put(names.get(i), nd);
+			if (parents.get(i) >= 0) {		// -1 signals root
+				nd.parent = m.get(names.get(parents.get(i)));
+				nd.parent.addChild(nd);
+			}
+			else root = nd;
+		} 
+
+	}
 
 	public static void main(String [] args) {
+
 		try {
 		List<String> food = Arrays.asList("Food", "Plant", "Animal", "Roots", "Leaves", "Fruits", "Fish", "Mammals", "Birds", "Potatoes", "Carrots", "Lettuce", "Cabbage", "Apples", "Pears", "Plums", "Oranges", "Salmon", "Tuna", "Beef", "Lamb", "Chicken", "Duck", "Wild", "Farm", "GrannySmith", "Gala");
 		List<Integer> foodparents = Arrays.asList(-1, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 4, 4, 5, 5, 5, 5, 6, 6, 7, 7, 8, 8, 17, 17, 13, 13);
@@ -69,7 +159,7 @@ public class NTree<E> {
 		List<Integer> intparents = Arrays.asList( -1, 0, 1, 1, 1, 2, 2, 2, 3, 3, 8, 8, 8, 8);
 		NTree<Integer> inttree = new NTree<>(intvalues, intparents);
 
-		NTree<Integer> inttree2 = new NTree<>();
+		NTree<Integer> intt.;;;;;;;;;;;;;;;;;;;;;;;; ree2 = new NTree<>();
 		inttree.serialize("inttree.out");
 		inttree2.deserialize("inttree.out");
 		
